@@ -1,0 +1,60 @@
+<div class="head">
+  <p class="mini">Click to see examples: <a ng-click="wallet='18HfRiUQaqJrJXxnqF3VmynG4XcbCHKxfE'; update(wallet)">18HfRiUQaqJrJXxnqF3VmynG4XcbCHKxfE</a> | <a ng-click="wallet='1EewCNrN1oypSYZE81HBiqrjuhkLcz1qXR';update(wallet)">1EewCNrN1oypSYZE81HBiqrjuhkLcz1qXR</a> </p>
+
+  <h1>SOG Collection Explorer - Spell of Genesis</h1>
+  <div class="input-data">
+
+    <input type="text" placeholder="Counterparty Public Wallet Address" class="wallet" ng-model="wallet" ng-pattern="/^\d{1,3}\w{25,34}$/" ng-change="update(wallet)">
+
+    <i class="fa fa-times clear-field" ng-click="clearCookie(); wallet=''; update('')"></i>
+
+  </div>
+  Menu: <a ng-click="changeView('table')">table view</a> |  <a ng-click="changeView('grid')">grid view</a> | <a ng-click="changeView('text')">text view</a>
+
+
+
+
+
+</div>
+
+<div class="additional">
+  <p>Total number of <i>different</i> SOG blockchain cards is <span>{{totalCards}}</span> cards <em>(the collection)</em>. This address owns <span>{{yourCards}}</span> Spell of Genesis blockchain cards. This address has <span>{{yourCompleteDecks}}</span> complete <em>collection(s)</em>. </p>
+
+
+  <fieldset class="exclude">
+    <label for="exclude">Exclude cards that aren't in this collection</label>
+    <input type="checkbox" ng-model="exclude" id="exclude" ng-change="applyFilter()"/>
+  </fieldset>
+</div>
+
+<i class="fa fa-cog fa-spin fa-3x fa-fw" ng-if="!ready"></i>
+
+<div class="table_view" ng-class="{ 'selection' :  isSelection}">
+  <div ui-grid="gridOptions" ui-grid-selection ui-grid-exporter ui-grid-auto-resize class="myGrid" ng-if="table">
+  </div>
+
+  <div class="popup" ng-if="isSelection">
+    <h3>Your selection:</h3>
+
+    <textarea  ng-model="basket">
+    </textarea>
+
+    <p>Number of cards: {{cards_count}}</p>
+  </div>
+</div>
+
+<ul ng-if="grid" class="grid-view">
+  <li ng-repeat="z in cards" ng-if="exclude ? ((z.quantity == 0 || z.quantity == null) ? false : true) : true">
+
+
+    <h2>{{z.assetName}}</h2>
+    <img ng-src="{{images_full}}/{{z.moongaId}}.jpg" ng-class="{'grayscale' : z.quantity == 0 || z.quantity == null }"/>
+
+    <h3 ng-if="wallet && ready">This address owns: {{z.quantity}} {{z.assetName}} </h3>
+
+  </li>
+</ul>
+
+<textarea ng-if="text" class="text_view" ng-model="cards_text">
+
+</textarea>

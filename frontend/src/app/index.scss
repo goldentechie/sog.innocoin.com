@@ -1,0 +1,343 @@
+/**
+ *  If you want to override some bootstrap variables, you have to change values here.
+ *  The list of variables are listed here bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss
+ */
+$navbar-inverse-link-color: #5AADBB;
+$icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
+
+/**
+ *  Do not remove the comments below. It's the markers used by wiredep to inject
+ *  sass dependencies when defined in the bower.json of your dependencies
+ */
+// bower:scss
+// endbower
+
+body {
+  background-color: rgba(247, 204, 25, 0.17);
+
+  i.fa-cog {
+    position: absolute;
+    top: 35%; left:45%;
+    transform: translateY(-50%) translateX(-50%);
+    z-index:10000;
+    font-size:20rem;
+  }
+  font-family: 'Acme', sans-serif;
+}
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+.thumbnail {
+  height: 200px;
+
+  img.pull-right {
+    width: 50px;
+  }
+}
+
+div.hide {
+  z-index:-1000;
+  position: absolute;
+
+}
+
+
+
+
+
+ul.grid-view {
+  list-style:none;
+  margin:0;
+  padding:0;
+
+  li {
+    display:inline-block;
+    text-align: center;
+    margin:0 2vmin 5vmin;
+
+    h2 {
+      font-size:2vmin;
+
+      @media (min-width: 0px) and (max-width: 299px) {
+        font-size:8vmin;
+      }
+
+      @media (min-width: 300px) and (max-width: 750px) {
+        width: 8vmin;
+      }
+
+      @media (min-width: 751px) and (max-width: 1000px) {
+        width: 8vmin;
+      }
+    }
+
+    h3 {
+      font-size:1.5vmin;
+
+      @media (min-width: 0px) and (max-width: 299px) {
+        font-size:8vmin;
+      }
+
+      @media (min-width: 300px) and (max-width: 750px) {
+        width: 8vmin;
+      }
+
+      @media (min-width: 751px) and (max-width: 1000px) {
+        width: 8vmin;
+      }
+    }
+
+    img {
+      width: 25vmin;
+      opacity:0.9;
+
+      @media (min-width: 0px) and (max-width: 299px) {
+        width: 95vmin;
+      }
+
+      @media (min-width: 300px) and (max-width: 750px) {
+        width: 45vmin;
+      }
+
+      @media (min-width: 751px) and (max-width: 1000px) {
+        width: 28vmin;
+      }
+
+    }
+
+    &:hover img { opacity:1;}
+  }
+}
+
+.additional {
+  padding:1rem 10px 0;
+  font-size:1.5vmin;
+  color:#333;
+  border-bottom:2px dashed darkolivegreen;
+  background-color: lightgreen;
+  position: relative;
+
+  fieldset {
+    position:absolute;
+    right:1rem;
+    top:24%;
+
+    label {
+      font-size:1.5vmin;
+    }
+
+    input {
+      font-size:3rem;
+      margin-left:1rem;
+    }
+  }
+
+
+  i {
+    text-decoration: underline;
+  }
+
+  em { font-weight: bold}
+
+  span {
+    display: inline-block;
+    border:1px dashed green;
+    border-radius:5px;
+    padding: 0 1rem;
+    background-color: lightyellow;
+  }
+
+}
+
+.myGrid {
+  position:absolute;
+  left:10px; top:17rem; right:10px;
+  bottom:20px;
+
+
+
+  .ui-grid-canvas {
+
+    .ui-grid-row:nth-child(odd) {
+      .ui-grid-cell {
+        background-color: lightyellow;
+      }
+      }
+
+    .ui-grid-row:nth-child(even) {
+      .ui-grid-cell {
+        background-color: rgba(173, 255, 47, 0.29);
+      }
+    }
+
+    .ui-grid-row-selected {
+
+      .ui-grid-cell {
+        background-color: rgba(87, 67, 255, 0.29)!important;
+      }
+    }
+
+   .ui-grid-row:hover {
+     .ui-grid-cell {
+       background-color: rgba(247, 204, 25, 0.37) !important;
+       cursor:pointer;
+
+       img {
+         position:absolute;
+         width:160px;
+         height:225px;
+       }
+     }
+   }
+
+  }
+}
+
+img.grayscale {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  opacity:0.4!important;
+}
+
+
+.head {
+  padding:0.5rem 1rem 0;
+  border-bottom:2px dashed darkolivegreen;
+  position: relative;
+
+  a {
+    cursor:pointer
+  }
+
+  .mini {
+    position: absolute;
+    bottom:-.8rem;
+    right:1rem;
+    font-family: console, georgia, verdana;
+    z-index:10000;
+
+    left:50%;
+    width:50%!important;
+    text-align: right;
+    padding-right:1rem;
+
+
+    @media (min-width: 0px) and (max-width: 299px) {
+      font-size:1.3vmin;
+    }
+
+    @media (min-width: 300px) and (max-width: 750px) {
+      width: 1.4vmin;
+    }
+
+    @media (min-width: 751px) and (max-width: 1280px) {
+      width: 1.5vmin;
+    }
+
+    @media (min-width: 1281px)  {
+      width: 1.8vmin;
+    }
+  }
+
+  h1 {
+    font-size:3rem;
+    margin:1rem 0;
+
+  }
+  .wallet {
+    font-size:1.5rem;
+    width:40rem;
+    margin:0 0 2rem;
+  }
+
+  div.input-data {
+
+    display: inline-block;
+    position: relative;
+
+    i.clear-field {
+
+      position:absolute;
+      top:15%;
+      right:1rem;
+      color:#777;
+
+      &:hover {
+        color:#333;
+        cursor:pointer;
+      }
+    }
+  }
+
+
+}
+
+div.moongaid {
+  padding-left:30px;
+}
+
+.text_view {
+  padding:10px;
+  position:absolute;
+  top:18rem; right:10px;
+  bottom:20px; left:10px;
+  width:99%;
+  height:70vmin;
+
+}
+
+.table_view {
+
+  &.selection {
+
+    .myGrid {
+      /*width:100% - 22rem;*/
+    }
+  }
+
+  div.popup {
+    position:absolute;
+    z-index:10000;
+    right:10px;
+    top:17rem;
+    bottom:20%;
+    width:20rem;
+    background-color: lightyellow;
+    border: 2px dashed yellowgreen;
+    text-align: center;
+    padding:1.1rem;
+
+    h3 {
+      margin:1rem 0 0;
+      padding:0;
+    }
+
+    p {
+      margin-top: 1rem;
+      padding-left: 1.1rem;
+      text-align: left;
+    }
+
+  }
+  textarea {
+    position:relative;
+    border:1px solid #ccc;
+    margin-top:2rem;
+    width:90%;
+    height:75%;
+
+  }
+}
+
+
+/**
+ *  Do not remove the comments below. It's the markers used by gulp-inject to inject
+ *  all your sass files automatically
+ */
+// injector
+// endinjector
