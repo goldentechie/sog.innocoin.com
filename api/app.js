@@ -3,6 +3,7 @@ var app = express();
 var balance = require('quantum-crypto');
 var request = require('request');
 var fs = require('fs');
+var _ = require('lodash');
 var api = "https://spellsofgenesis.com/api/v6/?action=get_all_cards&store_status=1";
 var burn = "https://counterpartychain.io/api/balances/1BURNSogXXXXXXXXXXXXXXXXXXXXW3ny2Y";
 
@@ -56,7 +57,7 @@ app.get('/api/:counterpartyAddress?', function(req, res) {
 
                 return res.json({
                         address: req.params.counterpartyAddress,
-                        cards : cards
+                        cards : _.sortBy(cards, 'assetName')
                     });
 
 
@@ -80,7 +81,70 @@ app.get('/api/:counterpartyAddress?', function(req, res) {
 
 });
 
+app.get('/telegram/:counterpartyAddress?', function(req, res) {
 
+    var cards = [];
+    var newCards = [];
+
+    var balances = null;
+    var address = req.params.counterpartyAddress;
+
+    request(api, function(error, response, body) {
+        base = JSON.parse(body).cards;
+
+        for(var z in base) {
+            if(base[z].hasOwnProperty('assetName')) {
+                cards.push(base[z]);
+            }
+        }
+
+        if(address) {
+
+            balance(address, function(error, balances) {
+
+                for(var i in cards) {
+
+                    for(var x in balances) {
+
+                        if(cards[i].assetName === balances[x].asset) {
+
+                            if(parseInt(balances[x].quantity,0) != 0) {
+                                newCards.push({
+                                    assetName: cards[i].assetName,
+                                    quantity: parseInt(balances[x].quantity, 0)
+                                });
+                            }
+                        }
+                    }
+                }
+                return res.json({
+                    address: req.params.counterpartyAddress,
+                    cards : _.sortBy(newCards, 'assetName')
+                });
+
+
+
+            });
+
+        } else {
+            for(var i in cards) {
+
+                newCards.push({
+                    assetName: cards[i].assetName
+                });
+            }
+
+            return res.json({
+                address: null,
+                cards : _.sortBy(newCards, 'assetName')
+            });
+
+        }
+
+
+    });
+
+});
 
 app.listen(8080, function () {
     console.log('App listening on port 8080!');

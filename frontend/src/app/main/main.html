@@ -48,7 +48,7 @@
 
 
     <h2>{{z.assetName}}</h2>
-    <img ng-src="{{images_full}}/{{z.moongaId}}.jpg" ng-class="{'grayscale' : z.quantity == 0 || z.quantity == null }"/>
+    <img ng-src="{{images_full}}{{z.assetName.toLowerCase()}}.jpg" ng-class="{'grayscale' : z.quantity == 0 || z.quantity == null }"/>
 
     <h3 ng-if="wallet && ready">This address owns: {{z.quantity}} {{z.assetName}} </h3>
 

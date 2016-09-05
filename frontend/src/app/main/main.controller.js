@@ -186,12 +186,12 @@
           columnDefs: [
 
             {
-              field: 'moongaId',
+              field: 'assetName',
               displayName: 'Card',
               width: '100',
               enableFiltering: false,
               cellClass: 'moongaid',
-              cellTemplate: '<img width="25px" ng-src="' + $scope.images_full + '{{COL_FIELD}}.jpg" ng-style="pic" ng-mouseenter="pic={ \'width\' : \'320px\', \'height\' : \'447px\', \'z-index\' : 10000, \'position\' : \'absolute\'}" ng-mouseleave="pic={}" " />'
+              cellTemplate: '<img width="25px" ng-src="' + $scope.images_full + '{{COL_FIELD.toLowerCase()}}.jpg" ng-style="pic" ng-mouseenter="pic={ \'width\' : \'320px\', \'height\' : \'447px\', \'z-index\' : 10000, \'position\' : \'absolute\'}" ng-mouseleave="pic={}" " />'
             },
             {
               field: 'assetName',

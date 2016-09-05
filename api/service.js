@@ -35,6 +35,7 @@ setInterval(function () {
                 cards.push(base[z]);
 
                 var filename = base[z].moongaId + '.jpg';
+                var savename = base[z].assetName.toLowerCase() + '.jpg';
 
                 var uri = 'http://api.moonga.com/RCT/cp/cards/view/normal/large/en/' + filename;
 
@@ -47,9 +48,9 @@ setInterval(function () {
                     });
                 };
 
-                if (!fileExists('images/' + filename)) {
-                    download(uri, 'images/' + filename, function () {
-                        console.log('done');
+                if (!fileExists('images/' + savename)) {
+                    download(uri, 'images/' + savename, function () {
+                       /* console.log('done');*/
                     });
                 }
 
@@ -59,4 +60,4 @@ setInterval(function () {
 
     });
 
-}, 3000000);
+}, 4000000);
