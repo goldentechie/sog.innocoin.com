@@ -18,20 +18,23 @@ class CardController extends TelegramBaseController {
         var url = 'https://sog.innocoin.com/api/cards/' + card + '.jpg';
         var api = 'https://sog.innocoin.com/api/';
 
-        $.sendMessage(card.toUpperCase());
-
         request(api, function(error, response, body) {
 
            var data = JSON.parse(body).cards;
 
-           var card_data = _.filter(data, { assetName : card.toUpperCase() });
+            try {
+                var card_data = _.filter(data, { assetName : card.toUpperCase() });
 
-           var base = card_data[0];
+                var base = card_data[0];
 
-           $.sendMessage('\nElement : '+base.element + '\nAttack : '+base.levels[0].attack + '\nHealth : '+base.levels[0].health + '\nSpeed : '+base.levels[0].speed);
+                $.sendMessage(card.toUpperCase() + ' - ' + base.name + '\n\nElement : '+base.element + '\nAttack : '+base.levels[0].attack + '\nHealth : '+base.levels[0].health + '\nSpeed : '+base.levels[0].speed);
 
-            $.sendPhoto({ url: url, filename: card + '.jpg'});
+                $.sendPhoto({ url: url, filename: card + '.jpg'});
 
+            } catch(e) {
+
+                $.sendMessage(card.toUpperCase() + ' - This card was not found or something went wrong, are you sure you spelled it correctly? see /list command to see all cards.');
+            }
 
         });
 
@@ -73,7 +76,7 @@ class CollectionController extends TelegramBaseController {
                 }
 
                 if (cards.length) {
-                    $.sendMessage("This address owns a total of " + total + " Spell of Genesis cards:\n\n" + text + "\n" + address + "\nSOG bot by Innocoin.com");
+                    $.sendMessage("This address ["+address+"] owns a total of " + total + " Spell of Genesis cards:\n\n" + text + "\nSOG power tool: sog.innocoin.com/#/"+address);
                 } else {
                     $.sendMessage("Address owns 0 cards or not recognized");
                 }
@@ -127,7 +130,8 @@ class HelpController extends TelegramBaseController {
             '/show :card name - shows an image card of choice\n\n' +
             'Power tool for managing collections: sog.innocoin.com\n\n' +
             'More features to come ...\n\n' +
-            'Bot programming by @cr-mn, contact for question, support or features');
+            'Bot programming by @cr-mn, contact for questions, support or features\n\n'+
+            'Tips:  1CmGEggpGyfpAMUFJvKAzEiSVUioZTuXME');
     }
 
     get routes() {

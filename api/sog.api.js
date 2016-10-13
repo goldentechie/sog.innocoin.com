@@ -4,7 +4,7 @@ var balance = require('quantum-crypto');
 var request = require('request');
 var fs = require('fs');
 var _ = require('lodash');
-var api = "https://spellsofgenesis.com/api/v6/?action=get_all_cards&store_status=1";
+var api = "https://spellsofgenesis.com/api/v7/?action=get_all_cards&client_version=0.807&store_status=1";
 var burn = "https://counterpartychain.io/api/balances/1BURNSogXXXXXXXXXXXXXXXXXXXXW3ny2Y";
 
 /*
