@@ -1,10 +1,13 @@
-var express = require('express');
-var app = express();
-var balance = require('quantum-crypto');
-var request = require('request');
-var fs = require('fs');
-var api = "https://spellsofgenesis.com/api/v7/?action=get_all_cards&client_version=0.807&store_status=1";
+let express = require('express');
+let app = express();
+let balance = require('quantum-crypto');
+let request = require('request');
+let fs = require('fs');
+let _ = require('lodash');
 
+
+const sogapi = "https://spellsofgenesis.com/api/v7/?action=get_all_cards&client_version=0.807&store_status=1";
+const pepeapi = "http://rarepepedirectory.com/json/pepelist.json";
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -23,41 +26,67 @@ function fileExists(filePath) {
 }
 
 
-var cards = [];
+let cards = [];
+let pepes = [];
 
 setInterval(function () {
 
-    request(api, function (error, response, body) {
+    request(sogapi, function (error, response, body) {
         base = JSON.parse(body).cards;
 
         for (var z in base) {
             if (base[z].hasOwnProperty('assetName')) {
                 cards.push(base[z]);
 
-                var filename = base[z].moongaId + '.jpg';
-                var savename = base[z].assetName.toLowerCase() + '.jpg';
+                let filename = base[z].moongaId + '.jpg';
+                let savename = base[z].assetName.toLowerCase() + '.jpg';
 
-                var uri = 'http://api.moonga.com/RCT/cp/cards/view/normal/large/en/' + filename;
+                let uri = 'http://api.moonga.com/RCT/cp/cards/view/normal/large/en/' + filename;
 
-                var download = function (uri, filename, callback) {
+                let download = function (uri, filename, callback) {
                     request.head(uri, function (err, res, body) {
-                        /*       console.log('content-type:', res.headers['content-type']);
-                         console.log('content-length:', res.headers['content-length']);*/
-
                         request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
                     });
                 };
 
-                if (!fileExists('images/' + savename)) {
-                    download(uri, 'images/' + savename, function () {
+                if (!fileExists('images/sog/' + savename)) {
+                    download(uri, 'images/sog/' + savename, function () {
                        /* console.log('done');*/
                     });
                 }
-
-
             }
         }
+    });
+
+
+    request(pepeapi, function (error, response, body) {
+        base = JSON.parse(body);
+
+        pepes = _.values(base);
+
+        for (let z in base) {
+
+            let savenames = [], uri, download;
+
+                savenames.push(z.toLowerCase() + base[z].slice(-4));
+
+                uri = base[z];
+
+                download = function (uri, filename, callback) {
+                    request.head(uri, function (err, res, body) {
+                        request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+                    });
+                };
+
+                for(let i=0; i < savenames.length; i++ ) {
+                    if (!fileExists('images/pepes/' + savenames[i])) {
+                        download(uri, 'images/pepes/' + savenames[i], function () {
+                            /* console.log('done');*/
+                        });
+                    }
+                }
+       }
 
     });
 
-}, 4000000);
+}, 5000);

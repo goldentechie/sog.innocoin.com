@@ -19,8 +19,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-
-app.use('/api/cards', express.static('images'));
+app.use('/api/images', express.static('images'));
 
 app.get('/api/:counterpartyAddress?', function(req, res) {
 
